@@ -1,26 +1,41 @@
 ## Updates The Current Song of the Day
 
-# TODO: Change write location to beginning of file
-
 require 'nokogiri'
 require 'open-uri'
 require 'date'
+require './get-track-uri'
 
 today = Date::MONTHNAMES[Date.today.month] + " " + Date.today.day.to_s + ", " + Date.today.year.to_s # => "March 10, 2017"
+today = "March 10, 2017"
+
+new_song = false
 
 # get SOTD page HTML
 page = Nokogiri::HTML(open('http://www.thecurrent.org/collection/song-of-the-day'))
 page_date = page.css('time') #get all <time> tags
-add = ""
-#update_file = File.new('../tmp/add.temp', 'w+')
+add = String.new
 page_date.each do |timetag|
     if timetag.text == today # match dates
         add = timetag.ancestors.xpath('h2').text.strip
-        #update_file.write(timetag.ancestors.xpath('h2').text.strip)
+        new_song = true
     end
 end
-#update_file.close
 
-file_to_read = '../data/TheCurrentSOTD.txt'
-file = IO.read(file_to_read) 
-open(file_to_read, 'w') { |f| f << add << "\n" << file} 
+
+if new_song
+    # Update TheCurrentSOTD.txt file, adding most recent song to beginning
+    file_to_read = '../data/TheCurrentSOTD.txt'
+    file = IO.read(file_to_read) 
+    open(file_to_read, 'w') { |f| f << add << "\n" << file} 
+
+    # Get Spotify URI of SOTD
+    puts get_track_uri(add)
+    
+
+    # Adds SOTD to Playlist
+    puts "Adding song '#{add}' to playlist"
+
+end
+
+
+
