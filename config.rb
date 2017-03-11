@@ -5,5 +5,3 @@ config = {
     :playlist_id => '1VJVFypnr5RFbUvRIEF6Pu',
     :user_token => ''
 }
-
-puts config[:username]
