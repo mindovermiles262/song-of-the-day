@@ -2,6 +2,7 @@
 # Operating Systems                   #
 #######################################
 
+error_log*
 user_token
 
 # OS X
