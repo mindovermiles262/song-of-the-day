@@ -2,7 +2,7 @@
 # Operating Systems                   #
 #######################################
 
-/user_token
+#user_token
 
 # OS X
 .DS_Store
