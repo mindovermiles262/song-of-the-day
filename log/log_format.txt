@@ -1,0 +1,3 @@
+Error logs are saved in this folder. Do not delete this file. 
+
+Compiled as {:failed_track_uri => [Date_&_Time, Response_Code, Response_Body] }

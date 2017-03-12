@@ -43,7 +43,7 @@ def add_track(track_uri)
         puts "Error code #{response.code}. Track not added to Spotify."
         @error_log[:track_uri] = [Time.new, response.code, response.body]
     end
-    log = File.new("./log/error_log_#{Time.new.to_s.gsub(" ","_")[0..18]}", "w")
+    log = File.new("./log/error_log_#{Time.new.to_s.gsub(" ","_")[0..18]}.log", "w")
     log.write(@error_log)
     log.close
 end
