@@ -2,7 +2,7 @@
 Automatically add The Current's, KEXP's, and KCRW's song of the day to Spotify playlist
 
 ##Use
-Obtain authentication key from [Spotify's API Console](https://developer.spotify.com/web-api/console/post-playlist-tracks/) and save it to a new file `user_token` in main directory.
+Obtain authentication key from [Spotify's API Console](https://developer.spotify.com/web-api/console/post-playlist-tracks/) and save it to `user_token` in main directory.
 Set playlist uri in `./lib/add-track.rb #configure`
 Then run `ruby main.rb` from main directory
 
