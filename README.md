@@ -6,6 +6,10 @@ Obtain authentication key from [Spotify's API Console](https://developer.spotify
 Set playlist uri in `./lib/add-track.rb #configure`
 Then run `ruby main.rb` from main directory
 
+#Add historic songs to new playlist
+Run `./lib/get-historic-[station].rb` to generate list of historic tracks (stored in ./data/)
+then run `./lib/add-historic-[station].rb` to add files to playlist
+
 ##Requirements
 * nokogiri
 
