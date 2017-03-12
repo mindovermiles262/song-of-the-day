@@ -34,12 +34,16 @@ def add_track(track_uri)
         http.request(request)
     end
 
+    # Alert Success or Failure
+    # Write failures to log
+    @error_log = Hash.new
     if response.code == "201"
-        puts "SUCCESS"
+        puts "Successfully added track to playlist"
     else
-        puts "Error code #{response.code}. Track not added to Spotify"
+        puts "Error code #{response.code}. Track not added to Spotify."
+        @error_log[:track_uri] = [Time.new, response.code, response.body]
     end
-    #puts response.body
+    log = File.new("./log/error_log_#{Time.new.to_s.gsub(" ","_")[0..18]}", "w")
+    log.write(@error_log)
+    log.close
 end
-
-configure()
