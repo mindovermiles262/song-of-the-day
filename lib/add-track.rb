@@ -1,5 +1,11 @@
 def configure
-    token = File.read('./user_token')
+    raise Exception.new("No User Token File") unless File.exist?('./user_token') || File.exist?('./../user_token')
+    begin
+        token = File.read('./user_token')
+    rescue
+        token = File.read('./../user_token')
+    end
+
     config = {
         :playlist_id => "1VJVFypnr5RFbUvRIEF6Pu",
         :user_token => token
@@ -31,7 +37,9 @@ def add_track(track_uri)
     if response.code == "201"
         puts "SUCCESS"
     else
-        puts "Error code #{response.code}: Song not added"
+        puts "Error code #{response.code}. Track not added to Spotify"
     end
     #puts response.body
 end
+
+configure()

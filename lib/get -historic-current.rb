@@ -1,4 +1,6 @@
 # Generates list of previous The Current SOTD tracks
+# Stored in ./data/TheCurrentSOTD.txt
+
 # Be sure to check last page number and update 'for' loop accordingly!
 
 require 'nokogiri'

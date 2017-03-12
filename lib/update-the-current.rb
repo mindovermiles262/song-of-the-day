@@ -33,7 +33,7 @@ def update_the_current
         uri = get_track_uri(add)
         
         # Adds SOTD to Playlist
-        puts "Adding song '#{add}' to playlist"
+        puts "Fetched track '#{add}'"
         add_track(uri)
     end
 end
