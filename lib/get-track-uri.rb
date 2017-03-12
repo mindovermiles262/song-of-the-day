@@ -1,3 +1,4 @@
+# Get Spotify Track URI from search query
 def get_track_uri(search_query)
     require 'net/http'
     require 'uri'
@@ -16,7 +17,7 @@ def get_track_uri(search_query)
         http.request(request)
     end
 
-    # Search response for track URI
+    # Search the response for track URI
     resp = JSON.parse(response.body)
     resp = resp['tracks'].to_s.split(" ")
     track_uri = String.new

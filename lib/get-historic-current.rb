@@ -1,5 +1,6 @@
 # Generates list of previous The Current SOTD tracks
 # Stored in ./data/TheCurrentSOTD.txt
+# Use ./lib/add-historic-current.rb to add songs to Spotify Playlist
 
 # Be sure to check last page number and update 'for' loop accordingly!
 

@@ -1,3 +1,4 @@
+# Adds all songs in ./data/TheCurrentSOTD.txt to Spotify Playlist
 require_relative './add-track'
 require_relative './get-track-uri'
 

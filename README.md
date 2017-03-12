@@ -17,7 +17,7 @@ then run `./lib/add-historic-[station].rb` to add files to playlist
 * Ruby v2.4
 
 ##TODO
-1. Add songs to Spotify Playlist
+1. ~~Add songs to Spotify Playlist~~
 2. Make daily scraper
 3. Add KEXP, KCRW
 4. Add automatic authentication

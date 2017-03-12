@@ -1,6 +1,5 @@
+## Updates The Current Song of the Day
 def update_the_current
-    ## Updates The Current Song of the Day
-
     require 'nokogiri'
     require 'open-uri'
     require 'date'
@@ -8,7 +7,7 @@ def update_the_current
     require_relative './add-track'
 
     today = Date::MONTHNAMES[Date.today.month] + " " + Date.today.day.to_s + ", " + Date.today.year.to_s # => "March 10, 2017"
-    today = "March 10, 2017"
+    #today = "March 10, 2017" # for devopment purposes
 
     new_song = false
 

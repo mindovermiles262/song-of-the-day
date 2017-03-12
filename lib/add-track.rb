@@ -1,3 +1,4 @@
+# Configure Spotify destination playlist and Authorization Token
 def configure
     raise Exception.new("No User Token File") unless File.exist?('./user_token') || File.exist?('./../user_token')
     begin
@@ -13,11 +14,12 @@ def configure
     return config
 end
 
+# Add track to Spotify Playlist via Track URI
 def add_track(track_uri)
     require 'net/http'
     require 'uri'
 
-    config = configure()
+    config = configure #set playlist_id and user_token
     playlist_id = config[:playlist_id]
     token = config[:user_token]
 
@@ -43,6 +45,8 @@ def add_track(track_uri)
         puts "Error code #{response.code}. Track not added to Spotify."
         @error_log[:track_uri] = [Time.new, response.code, response.body]
     end
+
+    # create then write new logfile
     begin
         log = File.new("./log/error_log_#{Time.new.to_s.gsub(" ","_")[0..18]}.log", "w")
     rescue
