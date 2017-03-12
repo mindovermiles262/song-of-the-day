@@ -25,9 +25,6 @@ def get_track_uri(search_query)
             track_uri = line[8..-5]
         end
     end
-
-    # Substitute : to % for Spotify Web API
-    track_uri = track_uri.gsub(":", "%")
-
+    
     return track_uri
 end

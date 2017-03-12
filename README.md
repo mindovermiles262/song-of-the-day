@@ -1,11 +1,13 @@
 #Song of the Day Podcast Catcher
 Automatically add The Current's, KEXP's, and KCRW's song of the day to Spotify playlist
 
+##Use
+Obtain authentication key from [Spotify's API Console](https://developer.spotify.com/web-api/console/post-playlist-tracks/) and save it to a new file `user_token` in main directory.
+Set playlist uri in `./lib/add-track.rb #configure`
+Then run `ruby main.rb` from main directory
+
 ##Requirements
 * nokogiri
-* open-uri
-
-##Use
 
 ##Development Languages
 * Ruby v2.4
@@ -14,6 +16,7 @@ Automatically add The Current's, KEXP's, and KCRW's song of the day to Spotify p
 1. Add songs to Spotify Playlist
 2. Make daily scraper
 3. Add KEXP, KCRW
+4. Add automatic authentication
 
 ##Contributing
 Please follow a "fork-and-pull" workflow when Contributing

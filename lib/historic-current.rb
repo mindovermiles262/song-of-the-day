@@ -16,5 +16,4 @@ for i in 1..32
         end
     end
 end
-
 f.close()
