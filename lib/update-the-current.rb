@@ -7,7 +7,7 @@ def update_the_current
     require_relative './add-track'
 
     today = Date::MONTHNAMES[Date.today.month] + " " + Date.today.day.to_s + ", " + Date.today.year.to_s # => "March 10, 2017"
-    #today = "March 10, 2017" # for devopment purposes
+    today = "March 10, 2017" # for devopment purposes
 
     new_song = false
 
@@ -34,5 +34,7 @@ def update_the_current
         # Adds SOTD to Playlist
         puts "Fetched track '#{add}'"
         add_track(uri)
+    else
+        puts "No New Current Song of the Day"
     end
 end

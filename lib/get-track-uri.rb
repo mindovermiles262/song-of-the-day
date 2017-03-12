@@ -26,6 +26,6 @@ def get_track_uri(search_query)
             track_uri = line[8..-5]
         end
     end
-    
+    puts "Track URI: #{track_uri}"
     return track_uri
 end
