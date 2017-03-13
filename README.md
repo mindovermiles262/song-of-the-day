@@ -10,7 +10,7 @@ Then run `ruby main.rb` from main directory on daily basis
 
 ##Add historic songs to new playlist
 Run `./lib/get-historic-[station].rb` to generate list of historic tracks (stored in ./data/)
-then run `./lib/add-historic-[station].rb` to add files to playlist
+then run `./lib/add-historic-[station].rb` to add files to Spotify playlist
 
 ##Requirements
 * nokogiri

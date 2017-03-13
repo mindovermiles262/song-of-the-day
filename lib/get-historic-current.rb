@@ -7,7 +7,7 @@
 require 'nokogiri'
 require 'open-uri'
 
-f = File.new('../data/TheCurrentSOTD.txt', 'w+')
+f = File.new('./data/TheCurrentSOTD.txt', 'w+')
 for i in 1..32
     puts "Processing page #{i} . . ."
     a = []

@@ -1,10 +1,8 @@
 # Configure Spotify destination playlist and Authorization Token
 def configure
-    raise Exception.new("No User Token File") unless File.exist?('./user_token') || File.exist?('./../user_token')
+    raise Exception.new("No User Token File") unless File.exist?('./user_token')
     begin
         token = File.read('./user_token')
-    rescue
-        token = File.read('./../user_token')
     end
 
     config = {
@@ -47,11 +45,7 @@ def add_track(track_uri)
     end
 
     # create then write new logfile
-    begin
-        log = File.new("./log/error_log_#{Time.new.to_s.gsub(" ","_")[0..18]}.log", "w")
-    rescue
-        log = File.new("./../log/error_log_#{Time.new.to_s.gsub(" ","_")[0..18]}.log", "w")
-    end
+    log = File.new("./log/error_log_#{Time.new.to_s.gsub(" ","_")[0..18]}.log", "w")
     log.write(@error_log)
     log.close
 end

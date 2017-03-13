@@ -5,7 +5,7 @@
 require 'nokogiri'
 require 'open-uri'
 
-f = File.new('../data/KEXP-SOTD.txt', 'w')
+f = File.new('./data/KEXP-SOTD.txt', 'w')
 page = Nokogiri::XML(open("http://feeds.kexp.org/kexp/songoftheday")) # get entire podcast xml
 titles = page.xpath('//title') # search for song titles in "<titles>"
 lines = titles.map(&:text).join("\n") # separate <titles> on new lines
