@@ -3,25 +3,31 @@ require_relative './add-track'
 require_relative './get-track-uri'
 
 f = File.open('./data/KEXP-SOTD.txt')
+log = []
 
 # get number of lines in file
 count = 0
 File.open('./data/KEXP-SOTD.txt') {|f| count = f.read.count("\n")}
 
-# Add historic tracks bottom up. 
-# Method add_track adds songs to top of playlist so adding tracks bottom up keeps playlist in order
+# Add historic tracks to Spotify from bottom up. 
 while count > 0
-    track = IO.readlines('./data/KEXP-SOTD.txt')[count-1]
+    track = IO.readlines('./data/KEXP-SOTD.txt')[count-1].strip!
     begin
         uri = get_track_uri(track)
-        puts "Fetched URI for track '#{track}"
-        add_track(uri)
-        count -= 1
     rescue
-        log = File.new("./log/invalid_uri_log_#{Time.new.to_s.gsub(" ","_")[0..18]}.log", "w")
-        log.write(track)
-        log.close
-        count -= 1
+        uri = false
     end
+    if uri == false
+        log << track
+    else
+        puts "Fetched URI for #{track}"
+        add_track(uri)
+    end
+    count -= 1
 end
 f.close
+
+# write log file of songs not found by Spotify API
+log_file = File.new('./log/historic_kexp_songs_not_found.log', 'w')
+log_file.write(log.join("\n"))
+log_file.close

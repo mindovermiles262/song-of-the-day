@@ -23,18 +23,29 @@ def update_the_current
     end
 
     if new_song
-        # Update TheCurrentSOTD.txt file, adding most recent song to beginning
-        file_to_read = './data/TheCurrentSOTD.txt'
-        file = IO.read(file_to_read) 
-        open(file_to_read, 'w') { |f| f << add << "\n" << file} 
-
         # Get Spotify URI of SOTD
         uri = get_track_uri(add)
-        
-        # Adds SOTD to Playlist
         puts "Fetched track '#{add}'"
-        add_track(uri)
-    else
-        puts "No New Current Song of the Day"
+
+        # Check if song has already been added
+        check = File.open('./data/TheCurrentSOTD.txt', 'r') { |l| l.readline }.strip
+        if check == add
+            puts "Song already added"
+            return
+        end
+
+        # Add SOTD to Spotify Playlist
+        add_successful = add_track(uri)
+
+        # Update TheCurrentSOTD.txt adding most recent song to beginning if add to spotify successful
+        if add_successful   
+            file_to_read = './data/TheCurrentSOTD.txt'
+            file = IO.read(file_to_read)
+            if File.open(file_to_read) { |f| f.readline }.strip != add
+                File.open(file_to_read, 'w') { |f| f << add << "\n" << file} 
+            end
+        end
+        
+        
     end
 end

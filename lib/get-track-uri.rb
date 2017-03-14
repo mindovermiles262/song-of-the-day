@@ -5,7 +5,6 @@ def get_track_uri(search_query)
     require 'json'
 
     query = search_query.strip.gsub(' ','+') #change search_query spaces to '+'
-
     # query Spotify Web API
     search = URI.parse("https://api.spotify.com/v1/search?q=" + query + "&type=track&limit=1")
     request = Net::HTTP::Get.new(search)
@@ -26,6 +25,9 @@ def get_track_uri(search_query)
             track_uri = line[8..-5]
         end
     end
-    puts "Track URI: #{track_uri}"
-    return track_uri
+    if track_uri.length > 3
+        return track_uri
+    else
+        return false 
+    end
 end

@@ -13,6 +13,7 @@ def configure
 end
 
 # Add track to Spotify Playlist via Track URI
+# Returns FALSE if unsuccessful
 def add_track(track_uri)
     require 'net/http'
     require 'uri'
@@ -39,13 +40,16 @@ def add_track(track_uri)
     @error_log = Hash.new
     if response.code == "201"
         puts "Successfully added track to playlist"
+        return true
     else
-        puts "Error code #{response.code}. Track not added to Spotify."
-        @error_log[:track_uri] = [Time.new, response.code, response.body]
-    end
+        puts "Track not added! Response code #{response.code}."
+        @error_log[track_uri] = [Time.new, response.code, response.body]
 
-    # create then write new logfile
-    log = File.new("./log/error_log_#{Time.new.to_s.gsub(" ","_")[0..18]}.log", "w")
-    log.write(@error_log)
-    log.close
+        # create and write error log file
+        timestring = [Time.new.year, Time.new.month, Time.new.day].join('-') + "_" + "#{Time.now.usec}"
+        log = File.new("./log/ErrorLog_#{timestring}.log", "w")
+        log.write(@error_log)
+        log.close
+        return false
+    end
 end

@@ -5,12 +5,14 @@ Spotify Playlist can be found [here](https://open.spotify.com/user/andyduss/play
 
 ##Use
 Obtain authentication key from [Spotify's API Console](https://developer.spotify.com/web-api/console/post-playlist-tracks/) and save it in a new file `user_token` in main directory.
-Set the playlist that songs are added to by changing :playlist_id in `./lib/add-track.rb #configure`to valid playlist URI.
-Then run `ruby main.rb` from main directory on daily basis
+Set the playlist that songs are added to by changing :playlist_id in `./lib/add-track.rb #configure`to valid Public Spotify Playlist URI.
+Then run `main.rb` from main directory on daily basis
 
 ##Add historic songs to new playlist
-Run `./lib/get-historic-[station].rb` to generate list of historic tracks (stored in ./data/)
-then run `./lib/add-historic-[station].rb` to add files to Spotify playlist
+Run `./lib/get-historic-[station].rb` to generate list of previous SOTD tracks (list stored in ./data/)
+
+then run `./lib/add-historic-[station].rb` to add files from specific station to Spotify playlist
+or run `../lib/add-historic-all.rb` to add files from all three stations. Any songs not found are stored in `./log/historic-[station]-songs-not-found.log`
 
 ##Requirements
 * nokogiri
@@ -23,6 +25,7 @@ then run `./lib/add-historic-[station].rb` to add files to Spotify playlist
 2. Make daily scraper
 3. Add KEXP, KCRW
 4. Add automatic authentication
+5. add `#add-historic-all` method
 
 ##Contributing
 Please follow a "fork-and-pull" workflow when Contributing
