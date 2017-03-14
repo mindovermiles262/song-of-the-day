@@ -3,6 +3,7 @@
 
 require_relative './lib/update-the-current'
 require_relative './lib/update-kexp'
+require_relative './lib/update-kcrw'
 
 # update The Current Song of the Day
 update_the_current
@@ -11,3 +12,4 @@ update_the_current
 update_kexp
 
 # update KCRW Today's Top Tune
+update_kcrw
