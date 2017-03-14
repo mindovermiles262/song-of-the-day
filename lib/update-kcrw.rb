@@ -46,4 +46,3 @@ def update_kcrw
         end
     end
 end
-update_kcrw
