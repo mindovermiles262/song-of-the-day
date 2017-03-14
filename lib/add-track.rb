@@ -1,24 +1,12 @@
-# Configure Spotify destination playlist and Authorization Token
-def configure
-    raise Exception.new("No User Token File") unless File.exist?('./user_token')
-    begin
-        token = File.read('./user_token')
-    end
-
-    config = {
-        :playlist_id => "1VJVFypnr5RFbUvRIEF6Pu",
-        :user_token => token
-    }
-    return config
-end
-
 # Add track to Spotify Playlist via Track URI
 # Returns FALSE if unsuccessful
 def add_track(track_uri)
     require 'net/http'
     require 'uri'
+    require_relative '../conf/configure'
 
-    config = configure #set playlist_id and user_token
+    #set playlist_id and user_token
+    config = configure
     playlist_id = config[:playlist_id]
     token = config[:user_token]
 

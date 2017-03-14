@@ -1,26 +1,26 @@
-#Song of the Day Podcast Catcher
+# Song of the Day Podcast Catcher
 Automatically add The Current's, KEXP's, and KCRW's song of the day to Spotify playlist
 
 Spotify Playlist can be found [here](https://open.spotify.com/user/andyduss/playlist/1VJVFypnr5RFbUvRIEF6Pu)
 
-##Use
-Obtain authentication key from [Spotify's API Console](https://developer.spotify.com/web-api/console/post-playlist-tracks/) and save it in a new file `user_token` in main directory.
-Set the playlist that songs are added to by changing :playlist_id in `./lib/add-track.rb #configure`to valid Public Spotify Playlist URI.
+## Use
+Obtain authentication key from [Spotify's API Console](https://developer.spotify.com/web-api/console/post-playlist-tracks/) and save it in a new file, `user_token` , in main directory.
+Set the playlist that songs are added to by changing :playlist_id in `./conf/configure.rb`to valid Public Spotify Playlist URI.
 Then run `main.rb` from main directory on daily basis
 
-##Add historic songs to new playlist
+## Add historic songs to new playlist
 Run `./lib/get-historic-[station].rb` to generate list of previous SOTD tracks (list stored in ./data/)
 
 then run `./lib/add-historic-[station].rb` to add files from specific station to Spotify playlist
 or run `../lib/add-historic-all.rb` to add files from all three stations. Any songs not found are stored in `./log/historic-[station]-songs-not-found.log`
 
-##Requirements
+## Requirements
 * nokogiri
 
-##Development Languages
+## Development Languages
 * Ruby v2.4
 
-##TODO
+## TODO
 1. ~~Add songs to Spotify Playlist~~
 2. ~~Make daily scraper~~
 3. ~~Add KEXP, KCRW Daily Updater~~
@@ -28,7 +28,7 @@ or run `../lib/add-historic-all.rb` to add files from all three stations. Any so
 5. add `#add-historic-all` method
 6. Find and add historic KCRW
 
-##Contributing
+## Contributing
 Please follow a "fork-and-pull" workflow when Contributing
 
 1. Fork the repo on GitHub
@@ -37,7 +37,7 @@ Please follow a "fork-and-pull" workflow when Contributing
 4. Push your work back up to your fork
 5. Submit a Pull request so that we can review your changes
 
-##Copyright Notice
+## Copyright Notice
 Copyright 2017 Andy Duss
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
