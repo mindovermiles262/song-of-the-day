@@ -22,10 +22,11 @@ or run `../lib/add-historic-all.rb` to add files from all three stations. Any so
 
 ##TODO
 1. ~~Add songs to Spotify Playlist~~
-2. Make daily scraper
-3. Add KEXP, KCRW
+2. ~~Make daily scraper~~
+3. ~~Add KEXP, KCRW Daily Updater~~
 4. Add automatic authentication
 5. add `#add-historic-all` method
+6. Find and add historic KCRW
 
 ##Contributing
 Please follow a "fork-and-pull" workflow when Contributing
