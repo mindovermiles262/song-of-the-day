@@ -10,7 +10,7 @@ def add_track(track_uri)
     playlist_id = config[:playlist_id]
     token = config[:user_token]
 
-    uri = URI.parse("https://api.spotify.com/v1/users/andyduss/playlists/" + playlist_id + "/tracks?position=0&uris=" + track_uri)
+    uri = URI.parse("https://api.spotify.com/v1/users/andyduss/playlists/" + playlist_id.to_s + "/tracks?position=0&uris=" + track_uri.to_s)
     request = Net::HTTP::Post.new(uri)
     request["Accept"] = "application/json"
     request["Authorization"] = "Bearer " + token

@@ -7,12 +7,25 @@ require_relative './lib/update-kcrw'
 
 # update The Current Song of the Day
 puts "Updating The Current . . ."
-update_the_current
+begin
+	update_the_current
+rescue
+	puts "The Current unable to update!"
+end
 
 # update KEXP Song of the Day
 puts "Updating KEXP . . ."
-update_kexp
+begin
+	update_kexp
+rescue
+	puts "KEXP unable to update!"
+end	
+
 
 # update KCRW Today's Top Tune
 puts "Updating KCRW . . ."
-update_kcrw
+begin
+	update_kcrw
+rescue
+	puts "KCRW unable to update!"
+end	

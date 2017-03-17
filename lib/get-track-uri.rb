@@ -28,6 +28,7 @@ def get_track_uri(search_query)
     if track_uri.length > 3
         return track_uri
     else
+        puts "Song not found"
         return false 
     end
 end
