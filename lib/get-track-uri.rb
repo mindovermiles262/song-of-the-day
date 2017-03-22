@@ -27,8 +27,10 @@ def get_track_uri(search_query)
     end
     if track_uri.length > 3
         return track_uri
-    else
+    else #write error log with song title and search query
+        @error_log = { [search_query] => [query, resp] }
+        File.open("./log/SongNotFound_#{search_query.split(" ").join("_")}_GTURI.log", "w") { |f| f.write(@error_log) }
         puts "Song not found"
-        return false 
+        return "song_not_found"
     end
 end

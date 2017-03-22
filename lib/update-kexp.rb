@@ -36,8 +36,8 @@ def update_kexp
         # Add SOTD to Spotify Playlist
         add_successful = add_track(uri)
 
-        # Update TheCurrentSOTD.txt adding most recent song to beginning if add to spotify successful
-        if add_successful   
+        # Update KEXP-SOTD.txt adding most recent song to beginning if add to spotify successful or not found in Spotify DB
+        if add_successful || uri == "song_not_found"
             file_to_read = './data/KEXP-SOTD.txt'
             file = IO.read(file_to_read)
             if File.open(file_to_read) { |f| f.readline }.strip != add
