@@ -26,7 +26,6 @@ def update_kcrw
     if new_song
         # Get Spotify URI of SOTD
         uri = get_track_uri(add)
-        puts "#{uri}"
         puts "Fetched track '#{add}'"
 
         # Check if song has already been added
