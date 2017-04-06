@@ -20,8 +20,6 @@ def update_kcrw
             new_song = true
         end
     end
-    
-    puts "SOTD: #{add}"
 
     if new_song
         # Get Spotify URI of SOTD
