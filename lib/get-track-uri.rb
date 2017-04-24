@@ -4,7 +4,8 @@ def get_track_uri(search_query)
     require 'uri'
     require 'json'
 
-    query = search_query.strip.gsub(' ','+') #change search_query spaces to '+'
+    query = search_query.strip.gsub(' ','+').gsub('&','').gsub('ñ','n') #change search_query spaces to '+'
+
     # query Spotify Web API
     search = URI.parse("https://api.spotify.com/v1/search?q=" + query + "&type=track&limit=1")
     request = Net::HTTP::Get.new(search)
@@ -26,15 +27,13 @@ def get_track_uri(search_query)
         end
     end
 
-    puts "Response: #{response.code}"
+    puts "Spotify Response: #{response.code}"
 
     if track_uri.length > 3
-        #puts "Track URI: #{track_uri}"
+        # puts "Track URI: #{track_uri}"
         return track_uri
-    else #write error log with song title and search query
-        error_log = { [search_query] => [query, resp] }
-        File.open("./log/SongNotFound_#{search_query.split(" ").join("_")}_GTURI.log", "w") { |f| f.write(error_log) }
-        puts "Song Not Found"
-        return "song_not_found"
+    elsif track_uri.length == 0 #write error log with song title and search query
+        puts "Spotify: Song Not Found"
+        return track_uri
     end
 end

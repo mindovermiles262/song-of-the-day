@@ -21,15 +21,16 @@ def update_kcrw
         end
     end
 
+    puts "Song of the Day: #{add}"
+
     if new_song
         # Get Spotify URI of SOTD
         uri = get_track_uri(add)
-        puts "Fetched track '#{add}'"
 
         # Check if song has already been added
         top_line = File.open('./data/KCRW-SOTD.txt', 'r') { |l| l.readline }.strip
         if top_line == add
-            puts "Song already added"
+            puts "Song already added to ./data/KCRW-SOTD.txt"
             return
         end
 
@@ -37,7 +38,7 @@ def update_kcrw
         add_successful = add_track(uri)
 
         # Update KCRW-SOTD.txt adding most recent song to beginning if add to spotify successful or not found in Spotify DB
-        if add_successful || uri == 0
+        if add_successful || uri == ""
             file_to_read = './data/KCRW-SOTD.txt'
             file = IO.read(file_to_read)
             if File.open(file_to_read) { |f| f.readline }.strip != add

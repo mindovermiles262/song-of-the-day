@@ -21,15 +21,16 @@ def update_kexp
         end
     end
 
+    puts "Song of the Day: #{add}"
+
     if new_song
         # Get Spotify URI of SOTD
         uri = get_track_uri(add)
-        puts "Fetched track '#{add}'"
 
         # Check if song has already been added
         check = File.open('./data/KEXP-SOTD.txt', 'r') { |l| l.readline }.strip
         if check == add
-            puts "Song already added"
+            puts "Song already added to ./data/KEXP-SOTD.txt"
             return
         end
 
@@ -37,7 +38,7 @@ def update_kexp
         add_successful = add_track(uri)
 
         # Update KEXP-SOTD.txt adding most recent song to beginning if add to spotify successful or not found in Spotify DB
-        if add_successful || uri == "song_not_found"
+        if add_successful || uri == ""
             file_to_read = './data/KEXP-SOTD.txt'
             file = IO.read(file_to_read)
             if File.open(file_to_read) { |f| f.readline }.strip != add

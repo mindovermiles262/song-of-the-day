@@ -29,3 +29,5 @@ begin
 rescue
 	puts "\n*****KCRW unable to update!*****\n\n"
 end	
+
+puts "\n"
