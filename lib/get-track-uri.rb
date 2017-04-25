@@ -4,7 +4,9 @@ def get_track_uri(search_query)
     require 'uri'
     require 'json'
 
-    query = search_query.strip.gsub(' ','+').gsub('&','').gsub('ñ','n') #change search_query spaces to '+'
+    query = search_query.strip.gsub(/\(feat.+.*/,'').gsub(' ','+').gsub('&','').gsub('ñ','n') #change search_query spaces to '+'
+
+    # puts "Query: #{query}" # Debugging
 
     # query Spotify Web API
     search = URI.parse("https://api.spotify.com/v1/search?q=" + query + "&type=track&limit=1")
