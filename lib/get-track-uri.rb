@@ -3,10 +3,13 @@ def get_track_uri(search_query)
     require 'net/http'
     require 'uri'
     require 'json'
+    require 'i18n' # Converts UTF-8 Chars into ASCII for URI Search Request
 
-    query = search_query.strip.gsub(/\(feat.+.*/,'').gsub(' ','+').gsub('&','').gsub('ñ','n') #change search_query spaces to '+'
+    I18n.available_locales = [:en]
 
-    # puts "Query: #{query}" # Debugging
+    query = I18n.transliterate(search_query.strip.gsub(/\(feat.+.*/,'').gsub(' ','+').gsub('&','')) #change search_query spaces to '+'
+
+    #puts "Query: #{query}" # Debugging
 
     # query Spotify Web API
     search = URI.parse("https://api.spotify.com/v1/search?q=" + query + "&type=track&limit=1")
