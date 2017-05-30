@@ -3,3 +3,4 @@ source "https://rubygems.org"
 
 gem 'nokogiri'
 gem 'i18n'
+gem 'rest-client'
