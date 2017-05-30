@@ -12,10 +12,12 @@ Then run `main.rb` from main directory on daily basis
 Run `./lib/get-historic-[station].rb` to generate list of previous SOTD tracks (list stored in ./data/)
 
 then run `./lib/add-historic-[station].rb` to add files from specific station to Spotify playlist
-or run `../lib/add-historic-all.rb` to add files from all three stations. Any songs not found are stored in `./log/historic-[station]-songs-not-found.log`
+or run `./lib/add-historic-all.rb` to add files from all three stations. Any songs not found are stored in `./log/historic-[station]-songs-not-found.log`
 
 ## Requirements
 * nokogiri
+* i18n
+* rest-client
 
 ## Development Languages
 * Ruby v2.4
