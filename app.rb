@@ -12,10 +12,9 @@ get '/' do
 end
 
 get '/login' do
-	client_id = '37710a0bc4a5466c885cca32c3ded2ce'
-	client_secret = 'd572a3f343ae4ae485e88f86a2f7ffbf'
+	client_id = # Client ID
+	client_secret = # Client Secret
 	redirect_uri = 'http%3A%2F%2Flocalhost%3A4567'
-	state = 'thisisthestateofspotify'
 	scope = 'playlist-modify-public'
 	show_dialog = 'false'
 	full_uri = 'https://accounts.spotify.com/authorize/?client_id=' + client_id + '&response_type=code&redirect_uri=' + redirect_uri + '&scope=' + scope
