@@ -6,7 +6,7 @@ def update_kcrw
     require_relative './add-track'
 
     today = (sprintf '%02d', Date.today.day) + " " + Date::MONTHNAMES[Date.today.month][0..2].to_s + " " + Date.today.year.to_s
-    # today = "03 Mar 2017"
+    # today = "04 July 2017"
 
     new_song = false
 
