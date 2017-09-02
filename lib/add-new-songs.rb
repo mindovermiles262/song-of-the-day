@@ -2,13 +2,16 @@ def add_new_songs
   require_relative './stations'
   require_relative './get-track-uri'
   require_relative './add-track'
+  require_relative './write-track'
 
   sotd = Array.new
   uri = Array.new
 
-  sotd << get_kexp
-  sotd << get_the_current
-  sotd << get_kcrw
+  sotd << write_track(get_kexp, "./data/KEXP-SOTD.txt")
+  sotd << write_track(get_the_current, "./data/TheCurrentSOTD.txt")
+  sotd << write_track(get_kcrw, "./data/TheCurrentSOTD.txt")
+
+  puts "!!!!!! SOTD: #{sotd} !!!!!!!!"
 
   sotd.each do |song|
     next if song.nil? || song.empty?
