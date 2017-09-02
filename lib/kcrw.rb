@@ -1,6 +1,6 @@
 # Updates KCRW Song of the Day. Returns song name and artist as the string
 # "<ARTIST>: <SONG>" (if available), otherwise returns nil
-def kcrw
+def get_kcrw
     require 'nokogiri'
     require 'open-uri'
     require 'date'

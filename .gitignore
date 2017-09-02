@@ -4,6 +4,8 @@
 
 error_log*
 user_token
+access_token
+refresh_token
 
 # OS X
 .DS_Store

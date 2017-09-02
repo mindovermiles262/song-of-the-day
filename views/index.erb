@@ -1,10 +1,18 @@
 <h1>Song of the Day</h1>
 
+<% if session[:user] %>
+  <a href="/refresh">Refresh</a>
+<% else %>
+  <a href="/login">login</a>
+<% end %>
+
 <h3>KEXP Song of the Day:</h3>
-<p><%= @@kexp %></p>
+<p><%= kexp %></p>
 
 <h3>The Current Song of the Day:</h3>
-<p><%= @@thecurrent %></p>
+<p><%= the_current %></p>
 
 <h3>KCRW Song of the Day:</h3>
-<p><%= @@kcrw %></p>
+<p><%= kcrw %></p>
+
+<a href="/new-songs">New Songs</a>

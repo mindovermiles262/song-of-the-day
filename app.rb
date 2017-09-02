@@ -3,23 +3,34 @@ require 'sinatra/reloader'
 require 'omniauth-spotify'
 require 'base64'
 require 'uri'
+require_relative './lib/stations'
+require_relative './conf/configure'
+require_relative './lib/add-new-songs'
 
-client_id = "7d8fb5b386a54b499283b2841fb8b61a"
-client_secret = "09d5405fbf444f62bb20e7fe6b6e74c9"
 
 configure do
   enable :sessions
 end
+
+helpers do
+  configure_env
+end
+
+client_id = ENV["client_id"] # "7d8fb5b386a54b499283b2841fb8b61a" # Test App
+client_secret = ENV["client_secret"] # "09d5405fbf444f62bb20e7fe6b6e74c9" # Test App
 
 use OmniAuth::Builder do
   provider :spotify, client_id, client_secret, scope: 'playlist-modify-public playlist-modify-private user-read-email'
 end
 
 get '/' do
-  update_sotd
-  erb :index, :locals => {  :thecurrent => @@thecurrent, 
-                            :kexp => @@kexp, 
-                            :kcrw => @@kcrw }
+  redirect to '/login' unless session[:user]
+  kexp = get_kexp
+  kcrw = get_kcrw
+  the_current = get_the_current
+  erb :index, :locals => {  :kexp => kexp, 
+                            :kcrw => kcrw,
+                            :the_current => the_current }
 end
 
 get '/login' do
@@ -34,21 +45,31 @@ get '/auth/spotify/callback' do
   session[:code] = params[:code]
   session[:creds] = request.env['omniauth.auth'].credentials
   session[:user] = request.env['omniauth.auth'].info
+  File.open('./conf/refresh_token', 'w+') { |file| file.write(request.env['omniauth.auth'].credentials.refresh_token) }
   redirect to '/'
 end
 
 get '/refresh' do
-  refresh
+  File.open('./conf/access_token', 'w+') { |file| file.write(refresh_token) }
+  redirect to '/'
 end
 
 get '/update' do
   update_sotd
 end
 
-def refresh
+get '/new-songs' do
+  ENV["access_token"] = refresh_token
+  add_new_songs
+  redirect to '/'
+end
+
+def refresh_token
+  require 'json'
+  configure_env
   redirect to '/login' unless session[:user]
-  refresh_token = session[:creds].refresh_token
-  auth = 'Basic ' + Base64.strict_encode64("#{client_id}:#{client_secret}")
+  refresh_token = ENV["refresh_token"]
+  auth = 'Basic ' + Base64.strict_encode64("#{ENV["client_id"]}:#{ENV["client_secret"]}")
   uri = URI.parse('https://accounts.spotify.com/api/token')
   request = Net::HTTP::Post.new(uri)
   request["Authorization"] = auth
@@ -65,11 +86,6 @@ def refresh
     http.request(request)
   end
 
-  session[:creds] = response.body
-end
-
-def update_sotd
-  @@kexp = get_kexp = "" ? "No New SOTD Today" : get_kexp
-  @@thecurrent = get_the_current = "" ? "No New SOTD Today" : get_the_current
-	@@kcrw = get_kcrw = "" ? "No New SOTD Today" : get_kcrw
+  # session[:creds] = response.body
+  return JSON.parse(response.body)['access_token']
 end
