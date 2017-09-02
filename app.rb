@@ -6,9 +6,6 @@ require 'uri'
 
 client_id = "7d8fb5b386a54b499283b2841fb8b61a"
 client_secret = "09d5405fbf444f62bb20e7fe6b6e74c9"
-id64 = Base64.strict_encode64(client_id)
-secret64 = Base64.strict_encode64(client_secret)
-auth = "Basic " + Base64.strict_encode64("#{client_id}:#{client_secret}")
 
 configure do
   enable :sessions
@@ -19,10 +16,10 @@ use OmniAuth::Builder do
 end
 
 get '/' do
-  # erb :index, :locals => {  :thecurrent => @@thecurrent, 
-  #                           :kexp => @@kexp, 
-  #                           :kcrw => @@kcrw }
-  "INDEX <br> Token: #{session[:creds].token if session[:creds]}"
+  update_sotd
+  erb :index, :locals => {  :thecurrent => @@thecurrent, 
+                            :kexp => @@kexp, 
+                            :kcrw => @@kcrw }
 end
 
 get '/login' do
@@ -45,16 +42,13 @@ get '/refresh' do
 end
 
 get '/update' do
-  refresh
-  @@kexp = kexp = get_kexp != "" ? get_kexp : "No New SOTD Today"
-  @@thecurrent = get_the_current != "" ? get_the_current : "No New SOTD Today"
-	@@kcrw = get_kcrw != "" ? get_kcrw : "No New SOTD Today"
+  update_sotd
 end
 
 def refresh
   redirect to '/login' unless session[:user]
   refresh_token = session[:creds].refresh_token
-  auth = "Basic " + Base64.strict_encode64("#{client_id}:#{client_secret}")
+  auth = 'Basic ' + Base64.strict_encode64("#{client_id}:#{client_secret}")
   uri = URI.parse('https://accounts.spotify.com/api/token')
   request = Net::HTTP::Post.new(uri)
   request["Authorization"] = auth
@@ -72,4 +66,10 @@ def refresh
   end
 
   session[:creds] = response.body
+end
+
+def update_sotd
+  @@kexp = get_kexp = "" ? "No New SOTD Today" : get_kexp
+  @@thecurrent = get_the_current = "" ? "No New SOTD Today" : get_the_current
+	@@kcrw = get_kcrw = "" ? "No New SOTD Today" : get_kcrw
 end
