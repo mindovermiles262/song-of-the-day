@@ -9,10 +9,10 @@ def add_new_songs
 
   sotd << write_track(get_kexp, "./data/KEXP-SOTD.txt")
   sotd << write_track(get_the_current, "./data/TheCurrentSOTD.txt")
-  sotd << write_track(get_kcrw, "./data/TheCurrentSOTD.txt")
+  sotd << write_track(get_kcrw, "./data/KCRW-SOTD.txt")
 
   # Output SOTD to console
-  puts "SOTD: #{sotd}"
+  puts "\nSOTD: #{sotd}"
 
   sotd.each do |song|
     next if song.nil? || song.empty?
