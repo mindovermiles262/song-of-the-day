@@ -3,77 +3,88 @@ require 'sinatra/reloader'
 require 'omniauth-spotify'
 require 'base64'
 require 'uri'
-
-client_id = "3a8d634974a646229f282aa9c163b1ce"
-client_secret = "f1fdc2355fb74acfb33e29719588da69"
-id64 = Base64.strict_encode64(client_id)
-secret64 = Base64.strict_encode64(client_secret)
-auth = "Basic " + Base64.strict_encode64("#{client_id}:#{client_secret}")
-
-use OmniAuth::Builder do
-  provider :spotify, client_id, client_secret,
-            scope: 'playlist-modify-public'
-end
+require_relative './lib/stations'
+require_relative './conf/configure'
+require_relative './lib/add-new-songs'
 
 configure do
   enable :sessions
 end
 
 helpers do
-  def admin?
-    session[:admin]
-  end
+  configure_env
+end
+
+client_id = ENV["client_id"]
+client_secret = ENV["client_secret"]
+
+use OmniAuth::Builder do
+  provider :spotify, client_id, client_secret, scope: 'playlist-modify-public playlist-modify-private user-read-email'
 end
 
 get '/' do
-	"Hello World"
+  redirect to '/login' unless session[:user]
+  kexp = get_kexp
+  kcrw = get_kcrw
+  the_current = get_the_current
+  erb :index, :locals => {  :kexp => kexp, 
+                            :kcrw => kcrw,
+                            :the_current => the_current }
 end
 
 get '/login' do
-  session[:code] = nil
-  redirect to("/auth/spotify")
+  if session[:creds]
+    "Logged in"
+  else
+    redirect to("/auth/spotify?show_dialog=true")
+  end
 end 
 
 get '/auth/spotify/callback' do
-  env['omniauth.auth'] ? session[:admin] = true : halt(401, 'Not Authorized')
   session[:code] = params[:code]
-  session[:state] = params[:state]
-  "#{session[:code]}"
-  # redirect to '/refresh'
+  session[:creds] = request.env['omniauth.auth'].credentials
+  session[:user] = request.env['omniauth.auth'].info
+  File.open('./conf/refresh_token', 'w+') { |file| file.write(request.env['omniauth.auth'].credentials.refresh_token) }
+  redirect to '/'
 end
 
 get '/refresh' do
+  File.open('./conf/access_token', 'w+') { |file| file.write(refresh_token) }
+  redirect to '/'
+end
+
+get '/update' do
+  update_sotd
+end
+
+get '/new-songs' do
+  ENV["access_token"] = refresh_token
+  add_new_songs
+  redirect to '/'
+end
+
+def refresh_token
+  require 'json'
+  configure_env
+  redirect to '/login' unless session[:user]
+  refresh_token = ENV["refresh_token"]
+  auth = 'Basic ' + Base64.strict_encode64("#{ENV["client_id"]}:#{ENV["client_secret"]}")
   uri = URI.parse('https://accounts.spotify.com/api/token')
-  resp = Net::HTTP.post_form(uri,
-      "grant_type" => "authorization_code",
-      "refresh_token" => "refresh_token",
-      "code" => session[:code].to_s,
-      "redirect_uri" => "http://localhost:4567/auth/spotify/callback",
-      "client_id" => client_id,
-      "client_secret" => client_secret)
-
-  # auth_options = {
-  #   url: 'https://accounts.spotify.com/api/token',
-  #   headers: { 'Authorization': 'Basic ' + auth },
-  #   form: {
-  #     grant_type: 'refresh-token',
-  #     refresh_token: 'refresh_token'
-  #   }
-  # }.to_json
-
-  # req = Net::HTTP.post (auth_options)
+  request = Net::HTTP::Post.new(uri)
+  request["Authorization"] = auth
+  request.set_form_data(
+    "grant_type" => "refresh_token",
+    "refresh_token" => refresh_token,
+  )
   
-  # req = Net::HTTP.post URI(),
-    # { 
-    #   "grant_type" => "authorization_code", 
-    #   "code" => session[:code],
-    #   "redirect_uri" => "http%3A%2F%2Flocalhost%3A4567",
-    #   "client_id" => client_id,
-    #   "client_secret" => client_secret
-    # }.to_json
-    # {
-    #   "Authorization" => auth, 
-    #   "Content-Type" => 'application/x-www-form-urlencoded' 
-    # }
-  "#{resp.body}<br>"
+  req_options = {
+    use_ssl: uri.scheme == "https",
+  }
+  
+  response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
+    http.request(request)
+  end
+
+  # session[:creds] = response.body
+  return JSON.parse(response.body)['access_token']
 end

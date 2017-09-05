@@ -4,6 +4,9 @@
 
 error_log*
 user_token
+access_token
+refresh_token
+conf/configure.rb
 
 # OS X
 .DS_Store
