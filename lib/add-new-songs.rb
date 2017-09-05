@@ -11,7 +11,8 @@ def add_new_songs
   sotd << write_track(get_the_current, "./data/TheCurrentSOTD.txt")
   sotd << write_track(get_kcrw, "./data/TheCurrentSOTD.txt")
 
-  puts "!!!!!! SOTD: #{sotd} !!!!!!!!"
+  # Output SOTD to console
+  puts "SOTD: #{sotd}"
 
   sotd.each do |song|
     next if song.nil? || song.empty?

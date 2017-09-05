@@ -4,9 +4,17 @@ Automatically add The Current's, KEXP's, and KCRW's song of the day to Spotify p
 Spotify Playlist can be found [here](https://open.spotify.com/user/andyduss/playlist/1VJVFypnr5RFbUvRIEF6Pu)
 
 ## Use
-Obtain authentication key from [Spotify's API Console](https://developer.spotify.com/web-api/console/post-playlist-tracks/) and save it in a new file, `user_token` , in main directory.
-Set the playlist that songs are added to by changing :playlist_id in `./conf/configure.rb`to valid Public Spotify Playlist URI.
-Then run `main.rb` from main directory on daily basis
+* Rename `/conf/configure.rb.sample` to `/conf/configure.rb`
+
+* Add your client ID, Secret, and destination playlist ID inside `/conf/configure.rb`
+
+* Start the sinatra server by running `ruby app.rb` from the root directory
+
+* Open `http://localhost:4567` in your web browser and log in
+
+* Click on the `Refresh` Link to get valid tokens
+
+* Click on `New Songs` to add any new songs to your playlist.
 
 ## Add historic songs to new playlist
 Run `./lib/get-historic-[station].rb` to generate list of previous SOTD tracks (list stored in ./data/)
@@ -15,9 +23,10 @@ then run `./lib/add-historic-[station].rb` to add files from specific station to
 or run `./lib/add-historic-all.rb` to add files from all three stations. Any songs not found are stored in `./log/historic-[station]-songs-not-found.log`
 
 ## Requirements
-* nokogiri
 * i18n
-* rest-client
+* nokogiri
+* omniauth-spotify
+* sinatra
 
 ## Development Languages
 * Ruby v2.4
@@ -26,7 +35,7 @@ or run `./lib/add-historic-all.rb` to add files from all three stations. Any son
 1. ~~Add songs to Spotify Playlist~~
 2. ~~Make daily scraper~~
 3. ~~Add KEXP, KCRW Daily Updater~~
-4. Add automatic authentication
+4. ~~Add automatic authentication~~
 5. add `#add-historic-all` method
 6. Find and add historic KCRW
 
