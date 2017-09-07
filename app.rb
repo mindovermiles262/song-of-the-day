@@ -36,7 +36,7 @@ get '/login' do
   if session[:creds]
     "Logged in"
   else
-    redirect to("/auth/spotify?show_dialog=true")
+    redirect to("/auth/spotify") # /auth/spotify?show_dialog=true
   end
 end 
 
