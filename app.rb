@@ -15,11 +15,8 @@ helpers do
   configure_env
 end
 
-client_id = ENV["client_id"]
-client_secret = ENV["client_secret"]
-
 use OmniAuth::Builder do
-  provider :spotify, client_id, client_secret, scope: 'playlist-modify-public playlist-modify-private user-read-email'
+  provider :spotify, ENV["client_id"], ENV["client_secret"], scope: 'playlist-modify-public playlist-modify-private user-read-email'
 end
 
 get '/' do
@@ -36,7 +33,7 @@ get '/login' do
   if session[:creds]
     "Logged in"
   else
-    redirect to("/auth/spotify") # /auth/spotify?show_dialog=true
+    redirect to("/auth/spotify?show_dialog=true") # /auth/spotify?show_dialog=true
   end
 end 
 
@@ -44,17 +41,8 @@ get '/auth/spotify/callback' do
   session[:code] = params[:code]
   session[:creds] = request.env['omniauth.auth'].credentials
   session[:user] = request.env['omniauth.auth'].info
-  File.open('./conf/refresh_token', 'w+') { |file| file.write(request.env['omniauth.auth'].credentials.refresh_token) }
+  ENV['REFRESH_TOKEN'] = request.env['omniauth.auth'].credentials.refresh_token
   redirect to '/'
-end
-
-get '/refresh' do
-  File.open('./conf/access_token', 'w+') { |file| file.write(refresh_token) }
-  redirect to '/'
-end
-
-get '/update' do
-  update_sotd
 end
 
 get '/new-songs' do
@@ -76,7 +64,6 @@ def refresh_token
     "grant_type" => "refresh_token",
     "refresh_token" => refresh_token,
   )
-  
   req_options = {
     use_ssl: uri.scheme == "https",
   }
@@ -84,7 +71,6 @@ def refresh_token
   response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
     http.request(request)
   end
-
   # session[:creds] = response.body
   return JSON.parse(response.body)['access_token']
 end

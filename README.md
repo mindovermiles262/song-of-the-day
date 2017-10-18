@@ -12,9 +12,7 @@ Spotify Playlist can be found [here](https://open.spotify.com/user/andyduss/play
 
 * Open `http://localhost:4567` in your web browser and log in
 
-* Click on the `Refresh` Link to get valid tokens
-
-* Click on `New Songs` to add any new songs to your playlist.
+* Click on `New Songs` to add any new songs to your playlist.  Information is displayed in the terminal window.
 
 ## Add historic songs to new playlist
 Run `./lib/get-historic-[station].rb` to generate list of previous SOTD tracks (list stored in ./data/)
