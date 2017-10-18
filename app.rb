@@ -33,7 +33,7 @@ get '/login' do
   if session[:creds]
     "Logged in"
   else
-    redirect to("/auth/spotify?show_dialog=true") # /auth/spotify?show_dialog=true
+    redirect to("/auth/spotify") # /auth/spotify?show_dialog=true
   end
 end 
 
@@ -46,7 +46,9 @@ get '/auth/spotify/callback' do
 end
 
 get '/new-songs' do
-  ENV["access_token"] = refresh_token
+  rt = refresh_token
+  puts "############    #{refresh_token}"
+  ENV["access_token"] = rt
   add_new_songs
   redirect to '/'
 end
@@ -55,14 +57,14 @@ def refresh_token
   require 'json'
   configure_env
   redirect to '/login' unless session[:user]
-  refresh_token = ENV["refresh_token"]
+  # refresh_token = ENV["refresh_token"]
   auth = 'Basic ' + Base64.strict_encode64("#{ENV["client_id"]}:#{ENV["client_secret"]}")
   uri = URI.parse('https://accounts.spotify.com/api/token')
   request = Net::HTTP::Post.new(uri)
   request["Authorization"] = auth
   request.set_form_data(
     "grant_type" => "refresh_token",
-    "refresh_token" => refresh_token,
+    "refresh_token" => ENV["REFRESH_TOKEN"]
   )
   req_options = {
     use_ssl: uri.scheme == "https",

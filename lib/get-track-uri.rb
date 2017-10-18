@@ -8,11 +8,11 @@ def get_track_uri(search_query)
 
     # Set User Token
     config = configure_env
-    begin
-        token = File.read('./conf/access_token')
-    rescue
-        raise Exception.new("Access token not avaiable. Please run app.rb")
-    end
+    # begin
+    #     token = File.read('./conf/access_token')
+    # rescue
+    #     raise Exception.new("Access token not avaiable. Please run app.rb")
+    # end
 
 
     # Converts UTF-8 Chars into ASCII for URI Search
@@ -22,7 +22,7 @@ def get_track_uri(search_query)
     # puts "Query: #{query}" # Debugging
 
     # query Spotify Web API
-    response = RestClient.get 'https://api.spotify.com/v1/search?q=' + query + '&type=track', {Accept: 'application/json', 'Authorization' => 'Bearer ' + token}
+    response = RestClient.get 'https://api.spotify.com/v1/search?q=' + query + '&type=track', {Accept: 'application/json', 'Authorization' => 'Bearer ' + ENV["access_token"]}
 
     # Search the response for track URI
     resp = JSON.parse(response.body)
