@@ -47,7 +47,6 @@ end
 
 get '/new-songs' do
   rt = refresh_token
-  puts "############    #{refresh_token}"
   ENV["access_token"] = rt
   add_new_songs
   redirect to '/'
