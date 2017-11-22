@@ -1,3 +1,6 @@
+require './lib/refresh-token'
 require './lib/add-new-songs'
-puts "main.rb is not currently working. Please use the sinatra app.rb"
-# add_new_songs
+
+auth_token = refresh()
+ENV["access_token"] = auth_token
+add_new_songs
