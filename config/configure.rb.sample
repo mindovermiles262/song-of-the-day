@@ -6,7 +6,5 @@ def configure_env
   ENV["client_secret"] ||= "<Your Spotify Client Secret>"
   ENV["playlist_id"] ||= "<Make some changes>"
 
-
   ENV["refresh_token"] = File.read('./config/refresh_token') if File.exist?('./config/refresh_token')
-  ENV["access_token"] = File.read('./config/access_token') if File.exist?('./config/refresh_token')
 end
