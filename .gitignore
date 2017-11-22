@@ -309,3 +309,4 @@ error_log
 #######################################
 
 *.sqliteconfig/database.yml
+config/authtoken.rb
