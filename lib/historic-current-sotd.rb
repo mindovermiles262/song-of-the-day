@@ -1,5 +1,5 @@
 # Generates list of previous The Current SOTD tracks
-# Stored in ./data/TheCurrentSOTD.txt
+# Stored in ./db/TheCurrentSOTD.txt
 # Use ./lib/add-historic-current.rb to add songs to Spotify Playlist
 
 # Be sure to check last page number and update 'for' loop accordingly!
@@ -7,7 +7,7 @@
 require 'nokogiri'
 require 'open-uri'
 
-f = File.new('./data/TheCurrentSOTD.txt', 'w+')
+f = File.new('./db/TheCurrentSOTD.txt', 'w+')
 for i in 1..32
     puts "Processing page #{i} . . ."
     a = []

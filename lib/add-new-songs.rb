@@ -7,9 +7,9 @@ def add_new_songs
   sotd = Array.new
   uri = Array.new
 
-  sotd << write_track(get_kexp, "./data/KEXP-SOTD.txt")
-  sotd << write_track(get_the_current, "./data/TheCurrentSOTD.txt")
-  sotd << write_track(get_kcrw, "./data/KCRW-SOTD.txt")
+  sotd << write_track(get_kexp, "./db/KEXP-SOTD.txt")
+  sotd << write_track(get_the_current, "./db/TheCurrentSOTD.txt")
+  sotd << write_track(get_kcrw, "./db/KCRW-SOTD.txt")
 
   # Output SOTD to console
   puts "\nSOTD: #{sotd}"

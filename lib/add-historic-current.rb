@@ -1,17 +1,17 @@
-# Adds all songs in ./data/TheCurrentSOTD.txt to Spotify Playlist
+# Adds all songs in ./db/TheCurrentSOTD.txt to Spotify Playlist
 require_relative './add-track'
 require_relative './get-track-uri'
 
-f = File.open('./data/TheCurrentSOTD.txt')
+f = File.open('./db/TheCurrentSOTD.txt')
 log = []
 
 # get number of lines in file
 count = 0
-File.open('./data/TheCurrentSOTD.txt') {|f| count = f.read.count("\n")}
+File.open('./db/TheCurrentSOTD.txt') {|f| count = f.read.count("\n")}
 
 # Add historic tracks to Spotify from bottom up. 
 while count > 0
-    track = IO.readlines('./data/TheCurrentSOTD.txt')[count-1].strip!
+    track = IO.readlines('./db/TheCurrentSOTD.txt')[count-1].strip!
     begin
         uri = get_track_uri(track)
     rescue

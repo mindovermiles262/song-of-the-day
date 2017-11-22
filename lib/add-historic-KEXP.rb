@@ -1,17 +1,17 @@
-# Adds all songs in ./data/KEXPSOTD.txt to Spotify Playlist
+# Adds all songs in ./db/KEXPSOTD.txt to Spotify Playlist
 require_relative './add-track'
 require_relative './get-track-uri'
 
-f = File.open('./data/KEXP-SOTD.txt')
+f = File.open('./db/KEXP-SOTD.txt')
 log = []
 
 # get number of lines in file
 count = 0
-File.open('./data/KEXP-SOTD.txt') {|f| count = f.read.count("\n")}
+File.open('./db/KEXP-SOTD.txt') {|f| count = f.read.count("\n")}
 
 # Add historic tracks to Spotify from bottom up. 
 while count > 0
-    track = IO.readlines('./data/KEXP-SOTD.txt')[count-1].strip!
+    track = IO.readlines('./db/KEXP-SOTD.txt')[count-1].strip!
     begin
         uri = get_track_uri(track)
     rescue

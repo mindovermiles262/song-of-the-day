@@ -15,7 +15,7 @@ Spotify Playlist can be found [here](https://open.spotify.com/user/andyduss/play
 * Click on `New Songs` to add any new songs to your playlist.  Information is displayed in the terminal window.
 
 ## Add historic songs to new playlist
-Run `./lib/get-historic-[station].rb` to generate list of previous SOTD tracks (list stored in ./data/)
+Run `./lib/get-historic-[station].rb` to generate list of previous SOTD tracks (list stored in ./db/)
 
 then run `./lib/add-historic-[station].rb` to add files from specific station to Spotify playlist
 or run `./lib/add-historic-all.rb` to add files from all three stations. Any songs not found are stored in `./log/historic-[station]-songs-not-found.log`
