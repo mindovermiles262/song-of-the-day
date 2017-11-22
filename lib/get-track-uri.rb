@@ -5,9 +5,11 @@ def get_track_uri(search_query)
     require 'i18n'
     require 'rest-client'
     require_relative '../config/configure'
+    require_relative './refresh-token'
 
     # Set User Token
     config = configure_env
+    access_token = refresh()
     # begin
     #     token = File.read('./config/access_token')
     # rescue
@@ -22,7 +24,7 @@ def get_track_uri(search_query)
     # puts "Query: #{query}" # Debugging
 
     # query Spotify Web API
-    response = RestClient.get 'https://api.spotify.com/v1/search?q=' + query + '&type=track', {Accept: 'application/json', 'Authorization' => 'Bearer ' + ENV["access_token"]}
+    response = RestClient.get 'https://api.spotify.com/v1/search?q=' + query + '&type=track', {Accept: 'application/json', 'Authorization' => 'Bearer ' + access_token}
 
     # Search the response for track URI
     resp = JSON.parse(response.body)
