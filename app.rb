@@ -73,5 +73,8 @@ def refresh_token
     http.request(request)
   end
   # session[:creds] = response.body
+
+  # Uncomment line below to obtain refresh token for CLI interface
+  #puts "!!!! REFRESH TOKEN: #{ENV["REFRESH_TOKEN"]}"
   return JSON.parse(response.body)['access_token']
 end

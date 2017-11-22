@@ -14,6 +14,15 @@ Spotify Playlist can be found [here](https://open.spotify.com/user/andyduss/play
 
 * Click on `New Songs` to add any new songs to your playlist.  Information is displayed in the terminal window.
 
+## From the Command Line
+* Add client ID, secret, and playlist ID to `/config/configure.rb`
+
+* Obtain refresh token by uncommenting line in `app.rb` and running "New Songs"
+
+* Copy refresh token to `./config/refresh_token`
+
+* Run `ruby main.rb` to run program. Set daily
+
 ## Add historic songs to new playlist
 Run `./lib/get-historic-[station].rb` to generate list of previous SOTD tracks (list stored in ./db/)
 
