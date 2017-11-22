@@ -4,7 +4,7 @@ require 'omniauth-spotify'
 require 'base64'
 require 'uri'
 require_relative './lib/stations'
-require_relative './conf/configure'
+require_relative './config/configure'
 require_relative './lib/add-new-songs'
 
 configure do

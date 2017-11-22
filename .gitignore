@@ -6,7 +6,7 @@ error_log*
 user_token
 access_token
 refresh_token
-conf/configure.rb
+config/configure.rb
 
 # OS X
 .DS_Store

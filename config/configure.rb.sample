@@ -7,6 +7,6 @@ def configure_env
   ENV["playlist_id"] ||= "<Make some changes>"
 
 
-  ENV["refresh_token"] = File.read('./conf/refresh_token') if File.exist?('./conf/refresh_token')
-  ENV["access_token"] = File.read('./conf/access_token') if File.exist?('./conf/refresh_token')
+  ENV["refresh_token"] = File.read('./config/refresh_token') if File.exist?('./config/refresh_token')
+  ENV["access_token"] = File.read('./config/access_token') if File.exist?('./config/refresh_token')
 end

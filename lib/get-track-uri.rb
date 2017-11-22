@@ -4,12 +4,12 @@ def get_track_uri(search_query)
     require 'json'
     require 'i18n'
     require 'rest-client'
-    require_relative '../conf/configure'
+    require_relative '../config/configure'
 
     # Set User Token
     config = configure_env
     # begin
-    #     token = File.read('./conf/access_token')
+    #     token = File.read('./config/access_token')
     # rescue
     #     raise Exception.new("Access token not avaiable. Please run app.rb")
     # end

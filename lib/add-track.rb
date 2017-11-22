@@ -3,7 +3,7 @@
 def add_track(track_uri)
     require 'net/http'
     require 'uri'
-    require_relative '../conf/configure'
+    require_relative '../config/configure'
 
     #set playlist_id and user_token
     configure_env

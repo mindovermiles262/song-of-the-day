@@ -4,9 +4,9 @@ Automatically add The Current's, KEXP's, and KCRW's song of the day to Spotify p
 Spotify Playlist can be found [here](https://open.spotify.com/user/andyduss/playlist/1VJVFypnr5RFbUvRIEF6Pu)
 
 ## Use
-* Rename `/conf/configure.rb.sample` to `/conf/configure.rb`
+* Rename `/config/configure.rb.sample` to `/config/configure.rb`
 
-* Add your client ID, Secret, and destination playlist ID inside `/conf/configure.rb`
+* Add your client ID, Secret, and destination playlist ID inside `/config/configure.rb`
 
 * Start the sinatra server by running `ruby app.rb` from the root directory
 
