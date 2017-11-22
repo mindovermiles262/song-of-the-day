@@ -308,4 +308,5 @@ error_log
 # File backups                        #
 #######################################
 
-*.sqlite
+*.sqliteconfig/database.yml
+config/database.yml
