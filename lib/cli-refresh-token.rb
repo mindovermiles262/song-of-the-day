@@ -1,7 +1,7 @@
 def cli_refresh_token
   require 'json'
   require 'base64'
-  require 'URI'
+  require 'uri'
   require 'net/http'
   require_relative '../conf/configure.rb'
 
