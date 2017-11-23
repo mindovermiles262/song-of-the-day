@@ -1,3 +1,6 @@
-require './lib/add-new-songs'
-puts "main.rb is not currently working. Please use the sinatra app.rb"
-# add_new_songs
+require_relative './lib/cli-refresh-token'
+require_relative './lib/add-new-songs'
+
+ENV["access_token"] = cli_refresh_token()
+
+add_new_songs()

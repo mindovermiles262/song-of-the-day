@@ -4,9 +4,8 @@ def configure_env
   # Change these three settings when setting up
   ENV["client_id"] ||= "<Your Spotify Client ID>"
   ENV["client_secret"] ||= "<Your Spotify Client Secret>"
-  ENV["playlist_id"] ||= "<Make some changes>"
+  ENV["playlist_id"] ||= "<Playlist ID>"
 
-
-  ENV["refresh_token"] = File.read('./conf/refresh_token') if File.exist?('./conf/refresh_token')
-  ENV["access_token"] = File.read('./conf/access_token') if File.exist?('./conf/refresh_token')
+  # If using CLI, add refresh token obtained via other instance of app
+  ENV["cli_refresh_token"] = "<Refresh Token>"
 end
