@@ -1,9 +1,9 @@
 # frozen_string_literal: true
-source "https://rubygems.org"
+source "https://rubygems.org" do
+  gem 'sinatra'
+  gem 'nokogiri'
+  gem 'i18n'
+  gem 'omniauth-spotify'
+  gem 'rake', '~> 12.1'
+end
 
-gem 'sinatra'
-gem 'sinatra-reloader', '~> 1.0'
-gem 'nokogiri'
-gem 'i18n'
-gem 'omniauth-spotify'
-gem 'rake', '~> 12.1'
