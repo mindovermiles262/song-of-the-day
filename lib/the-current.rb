@@ -7,6 +7,7 @@ def get_the_current
 
     today = Date::MONTHNAMES[Date.today.month] + " " + Date.today.day.to_s + ", " + Date.today.year.to_s # => "March 10, 2017"
     #today = "August 30, 2017"
+    # today = "July 24, 2020"
 
     # get SOTD page HTML
     page = Nokogiri::HTML(open('http://www.thecurrent.org/collection/song-of-the-day'))

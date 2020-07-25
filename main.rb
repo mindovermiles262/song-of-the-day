@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require_relative './lib/cli-refresh-token'
 require_relative './lib/add-new-songs'
 

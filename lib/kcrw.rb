@@ -7,6 +7,7 @@ def get_kcrw
 
     today = (sprintf '%02d', Date.today.day) + " " + Date::MONTHNAMES[Date.today.month][0..2].to_s + " " + Date.today.year.to_s
     # today = "29 Sep 2016"
+    # today = "24 Jul 2020"
 
     page = Nokogiri::XML(open("http://feeds.kcrw.com/podcast/show/tu"))
     dates = page.xpath('//pubDate') # search for pubDate

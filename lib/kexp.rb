@@ -6,7 +6,8 @@ def get_kexp
     require 'date'
 
     today = (sprintf '%02d', Date.today.day) + " " + Date::MONTHNAMES[Date.today.month][0..2].to_s + " " + Date.today.year.to_s
-    #today = "01 Sep 2017"
+    # today = "01 Sep 2017"
+    # today = "24 Jul 2020"
 
     # get SOTD XML
     page = Nokogiri::XML(open("http://feeds.kexp.org/kexp/songoftheday"))
