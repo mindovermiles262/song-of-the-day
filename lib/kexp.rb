@@ -10,7 +10,8 @@ def get_kexp
     # today = "24 Jul 2020"
 
     # get SOTD XML
-    page = Nokogiri::XML(open("http://feeds.kexp.org/kexp/songoftheday"))
+    # page = Nokogiri::XML(open("http://feeds.kexp.org/kexp/songoftheday"))
+    page = Nokogiri::XML(open("https://www.omnycontent.com/d/playlist/bad5d079-8dcb-4630-8770-aa090049131d/32b2ac38-5a48-4300-9fa6-aa40002038b5/4ac1c451-4315-4096-ab9b-aa40002038c4/podcast.rss"))
     dates = page.xpath('//pubDate')
     add = String.new
     dates.each do |tag|
