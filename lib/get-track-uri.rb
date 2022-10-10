@@ -29,10 +29,10 @@ def get_track_uri(search_query)
     resp = resp['tracks'].to_s.split(" ")
     track_uri = String.new
     resp.each do |line|
-        # TODO: Rewrite using Regex
         if line.include?('uri"=>"spotify:track:')
-            track_uri = line[8..-5]
-            # break
+            track_uri = line.match(/spotify:track:([\d\w]+)/)[0] # Grab the Track ID
+            # puts "Track URI: #{track_uri}" # Debugging
+            break # The first match is probably the correct one
         end
     end
 
