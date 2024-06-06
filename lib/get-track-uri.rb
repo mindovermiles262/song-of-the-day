@@ -17,9 +17,10 @@ def get_track_uri(search_query)
 
     # Converts UTF-8 Chars into ASCII for URI Search
     I18n.available_locales = [:en]
-    query = I18n.transliterate(search_query.strip.gsub(/\(feat.+.*/,'').gsub(' ','+').gsub('&','')) #change search_query spaces to '+'
-
-    # puts "Query: #{query}" # Debugging
+    # query = I18n.transliterate(search_query.strip.gsub(/\(feat.+.*/,'').gsub(' ','+').gsub('&','')) #change search_query spaces to '+'
+    # query = I18n.transliterate(search_query.strip.gsub(/\(feat.+.*\)/,'').gsub(' ','+').gsub('&','')) # Change to only remove (feat. ... )
+    query = I18n.transliterate(search_query.strip.gsub('(','').gsub(')','').gsub(' ','+').gsub('&','')) # Change to keep "feat." but remove parenthesis
+    puts "Query: #{query}" # Debugging
 
     # query Spotify Web API
     response = RestClient.get 'https://api.spotify.com/v1/search?q=' + query + '&type=track', {Accept: 'application/json', 'Authorization' => 'Bearer ' + ENV["access_token"]}
@@ -28,6 +29,7 @@ def get_track_uri(search_query)
     resp = JSON.parse(response.body)
     resp = resp['tracks'].to_s.split(" ")
     track_uri = String.new
+    
     resp.each do |line|
         if line.include?('uri"=>"spotify:track:')
             track_uri = line.match(/spotify:track:([\d\w]+)/)[0] # Grab the Track ID

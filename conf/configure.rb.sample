@@ -6,6 +6,10 @@ def configure_env
   ENV["client_secret"] ||= "<Your Spotify Client Secret>"
   ENV["playlist_id"] ||= "<Playlist ID>"
 
+  # ENV["playlist_id"] ||= "1VJVFypnr5RFbUvRIEF6Pu" # Song of the Day
+  # ENV["playlist_id"] ||= "4rGQPqMNfnG6O0T3xmWlkw" # Runner Powered Podcast
+  # ENV["playlist_id"] ||= "3GTRVTO7OlxPUFzH5AOqj4" # Auto KEXP RPP
+
   # If using CLI, add refresh token obtained via other instance of app
   ENV["cli_refresh_token"] = "<Refresh Token>"
 end

@@ -1,0 +1,6 @@
+services:
+  sotd:
+    build: .
+    volumes:
+      - .:/code
+    command: "sleep 99999"

@@ -1,6 +1,6 @@
 # Add track to Spotify Playlist via Track URI
 # Returns FALSE if unsuccessful
-def add_track(track_uri)
+def add_track(track_uri, position=0)
     require 'net/http'
     require 'uri'
     require_relative '../conf/configure'
@@ -10,7 +10,7 @@ def add_track(track_uri)
     playlist_id = ENV["playlist_id"]
     token = ENV["access_token"]
 
-    uri = URI.parse("https://api.spotify.com/v1/users/andyduss/playlists/" + playlist_id.to_s + "/tracks?position=0&uris=" + track_uri.to_s)
+    uri = URI.parse("https://api.spotify.com/v1/users/andyduss/playlists/" + playlist_id.to_s + "/tracks?position=" + position.to_s + "&uris=" + track_uri.to_s)
     request = Net::HTTP::Post.new(uri)
     request["Accept"] = "application/json"
     request["Authorization"] = "Bearer " + token
@@ -27,6 +27,9 @@ def add_track(track_uri)
     # Write failures to log
     @error_log = Hash.new
     if response.code == "201"
+        puts "Successfully added track to playlist"
+        return true
+    elsif response.code == "200"
         puts "Successfully added track to playlist"
         return true
     elsif response.code == "400"
