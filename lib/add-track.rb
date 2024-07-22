@@ -33,7 +33,9 @@ def add_track(track_uri, position=0)
         puts "Successfully added track to playlist"
         return true
     elsif response.code == "400"
-        # do nothing, user already alerted in 'get-track-uri'
+        puts "Track not added! Response code #{response.code}. See ErrorLog"
+        puts response.body
+        @error_log[track_uri] = [Time.new, response.code, response.body]
     else
         puts "Track not added! Response code #{response.code}. See ErrorLog"
         @error_log[track_uri] = [Time.new, response.code, response.body]
